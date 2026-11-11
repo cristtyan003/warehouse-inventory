@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#D24726">
+<title>Create account — Warehouse Inventory</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+<div class="stage" aria-hidden="true">
+  <div class="mesh"></div>
+  <div class="veil"></div>
+  <canvas class="waves" id="waves"></canvas>
+</div>
+<aside class="hero-left" aria-hidden="true">
+  <h2>Safety first</h2>
+  <svg viewBox="0 0 92 28"><path d="M4 4l10 10L4 24"/><path d="M34 4l10 10-10 10"/><path d="M64 4l10 10-10 10"/></svg>
+</aside>
+<div class="card wide">
+  <h1>Create account</h1>
+  <p class="sub">Enter your name, your email and a password. Your name is shown when you schedule safety routines.</p>
+  <form method="POST" action="{{ url_for('register') }}">
+    <div class="row2">
+      <div>
+        <label for="first_name">First name</label>
+        <input type="text" id="first_name" name="first_name" value="{{ first_name }}" maxlength="60" autocomplete="given-name" autofocus required>
+      </div>
+      <div>
+        <label for="last_name">Last name</label>
+        <input type="text" id="last_name" name="last_name" value="{{ last_name }}" maxlength="60" autocomplete="family-name" required>
+      </div>
+    </div>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" value="{{ email }}" autocomplete="email" required
+           placeholder="{{ 'name@' ~ domains[0] if domains else 'name@company.com' }}">
+    {% if domains %}
+    <small class="hint">Accepted domains: {% for d in domains %}@{{ d }}{% if not loop.last %}, {% endif %}{% endfor %}</small>
+    {% endif %}
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" autocomplete="new-password" minlength="{{ min_password }}" required>
+    <small class="hint">At least {{ min_password }} characters.</small>
+
+    <label for="confirm">Confirm password</label>
+    <input type="password" id="confirm" name="confirm" autocomplete="new-password" minlength="{{ min_password }}" required>
+
+    {% if code_required %}
+    <label for="code">Access code</label>
+    <input type="password" id="code" name="code" autocomplete="off" required>
+    <small class="hint">Ask the system administrator for the code.</small>
+    {% endif %}
+
+    <button type="submit">Create account</button>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  </form>
+  <div class="note">New accounts start with <b>view-only</b> access. If you need to edit data, ask an administrator to change your role.</div>
+  <div class="switch">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></div>
+  <div class="footer">Warehouse Inventory</div>
+</div>
+<script src="{{ url_for('static', filename='login.js') }}"></script>
+</body>
+</html>

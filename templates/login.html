@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#D24726">
+<title>Sign in — Warehouse Inventory</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+<div class="stage" aria-hidden="true">
+  <div class="mesh"></div>
+  <div class="veil"></div>
+  <canvas class="waves" id="waves"></canvas>
+</div>
+<aside class="hero-left" aria-hidden="true">
+  <h2>Safety first</h2>
+  <svg viewBox="0 0 92 28"><path d="M4 4l10 10L4 24"/><path d="M34 4l10 10-10 10"/><path d="M64 4l10 10-10 10"/></svg>
+</aside>
+<div class="card">
+  <h1>Warehouse Inventory</h1>
+  <p class="sub">PPE stock, safety routines and uniform requests in one place.</p>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="{{ 'success' if category == 'success' else 'error' }}">{{ message }}</div>
+    {% endfor %}
+  {% endwith %}
+  <form method="POST" action="{{ url_for('login') }}">
+    <label for="username">Username or email</label>
+    <input type="text" id="username" name="username" autocomplete="username" autofocus required>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" autocomplete="current-password" required>
+    <button type="submit">Sign in</button>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  </form>
+  {% if registration_open %}
+  <div class="switch">Don't have access yet? <a href="{{ url_for('register') }}">Create an account</a></div>
+  {% endif %}
+  <div class="footer">Warehouse Inventory</div>
+</div>
+<script src="{{ url_for('static', filename='login.js') }}"></script>
+</body>
+</html>
