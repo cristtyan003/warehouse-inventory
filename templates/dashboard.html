@@ -4093,7 +4093,7 @@ function render() {
           <span class="lbl">Available budget in ${monthLabel(currentMonth)}${
             CAN_EDIT
               ? ` — monthly budget:
-            <input id="budgetInput" class="cell money" type="number" min="0" step="0.01" placeholder="definir" value="${monthBudget != null ? monthBudget : ""}" style="margin-top:4px;">`
+            <input id="budgetInput" class="cell money" type="number" min="0" step="0.01" placeholder="set budget" value="${monthBudget != null ? monthBudget : ""}" style="margin-top:4px;">`
               : ""
           }</span>
         </div></div>
@@ -4757,7 +4757,7 @@ function routineSubtabs() {
   if (!CAN_EDIT) return "";
   const late = managerRows().filter((m) => !m.ok).length;
   return `<div class="ag-subtabs" role="tablist">
-    <button class="ag-subtab${routineView === "list" ? " on" : ""}" data-v="list" type="button" role="tab"><svg class=i><use href=#i-calendar></use></svg> Agendamentos</button>
+    <button class="ag-subtab${routineView === "list" ? " on" : ""}" data-v="list" type="button" role="tab"><svg class=i><use href=#i-calendar></use></svg> Schedule</button>
     <button class="ag-subtab${routineView === "managers" ? " on" : ""}" data-v="managers" type="button" role="tab"><svg class=i><use href=#i-users></use></svg> Manager tracking${managersList && late ? ` <span class="ag-badge">${late}</span>` : ""}</button>
   </div>`;
 }
